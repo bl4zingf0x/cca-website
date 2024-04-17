@@ -26,19 +26,20 @@
         <h2>Online Notepad</h2>
         <textarea id="notepad" placeholder="Start typing your notes here..." style="width: 100%; height: 300px;"></textarea>
         <br>
-        <button id="saveNoteBtn" class="btn">Save Note</button>
+        <div id="saveNoteSection" style="display: none;">
+            <button id="saveNoteBtn" class="btn">Save Note</button>
+        </div>
     </div>
 
     <!-- Additional Content to be Stored in the Backend -->
     <div class="container">
         <h2>Contact Information</h2>
-        <form id="contactForm" action="/api/contact" method="post">
+        <form id="contactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
+            <button type="submit" class="btn">Submit</button>
         </form>
     </div>
 
@@ -51,21 +52,34 @@
 
     <!-- JavaScript for handling notepad and form submission -->
     <script>
+        // Submit event listener for the contact form
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form values
+            var name = document.getElementById("name").value.trim();
+            var email = document.getElementById("email").value.trim();
+
+            // Check if both name and email are submitted
+            if (name !== '' && email !== '') {
+                // Display the save button
+                document.getElementById("saveNoteSection").style.display = "block";
+            } else {
+                // Notify user to fill out name and email
+                alert('Please provide your name and email before proceeding.');
+            }
+        });
+
+        // Click event listener for the save note button
         document.getElementById("saveNoteBtn").addEventListener("click", function() {
             // Get note content
             var noteContent = document.getElementById("notepad").value;
 
-            // Check if note content is not empty
-            if (noteContent.trim() !== '') {
-                // Save note locally on the device
-                saveNoteLocally(noteContent);
+            // Save note locally on the device
+            saveNoteLocally(noteContent);
 
-                // Notify user that note has been saved
-                alert('Note saved successfully!');
-            } else {
-                // Notify user if note content is empty
-                alert('Please type something before saving!');
-            }
+            // Notify user that note has been saved
+            alert('Note saved successfully!');
         });
 
         // Function to save note locally on the device
