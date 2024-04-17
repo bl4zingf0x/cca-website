@@ -53,10 +53,28 @@
     <!-- JavaScript for handling notepad and form submission -->
     <script>
         document.getElementById("saveNoteBtn").addEventListener("click", function() {
-            // Simulate saving note to backend
+            // Get note content
             var noteContent = document.getElementById("notepad").value;
-            console.log("Note content to be saved:", noteContent);
-            // Send the note content to the backend using AJAX or fetch
+
+            // Check if note content is not empty
+            if (noteContent.trim() !== '') {
+                // Save note to database (you need to implement this part using AJAX or fetch)
+                saveNoteToDatabase(noteContent);
+
+                // Save note locally on the device
+                saveNoteLocally(noteContent);
+
+                // Notify user that note has been saved
+                alert('Note saved successfully!');
+            } else {
+                // Notify user if note content is empty
+                alert('Please type something before saving!');
+            }
+        });
+
+        // Function to save note to database
+        function saveNoteToDatabase(noteContent) {
+            // Implement saving note to the database using AJAX or fetch
             // Example:
             /*
             fetch('/api/notes', {
@@ -68,123 +86,23 @@
             })
             .then(response => {
                 if (response.ok) {
-                    console.log('Note saved successfully');
+                    console.log('Note saved to database successfully');
                 } else {
-                    console.error('Error saving note');
+                    console.error('Error saving note to database');
                 }
             })
             .catch(error => {
-                console.error('Error saving note:', error);
+                console.error('Error saving note to database:', error);
             });
             */
-        });
-
-        document.getElementById("contactForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            // Simulate sending contact form data to backend
-            var formData = new FormData(this);
-            var formDataObject = {};
-            formData.forEach(function(value, key){
-                formDataObject[key] = value;
-            });
-            console.log("Contact form data to be sent:", formDataObject);
-            // Send the form data to the backend using AJAX or fetch
-            // Example:
-            /*
-            fetch('/api/contact', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Message sent successfully');
-                    // Reset the form
-                    document.getElementById("contactForm").reset();
-                } else {
-                    console.error('Error sending message');
-                }
-            })
-            .catch(error => {
-                console.error('Error sending message:', error);
-            });
-            */
-        });
-    </script>
-    <!-- JavaScript for handling notepad and form submission -->
-<script>
-    document.getElementById("saveNoteBtn").addEventListener("click", function() {
-        // Check if name, email, and message fields are filled out
-        var name = document.getElementById("name").value.trim();
-        var email = document.getElementById("email").value.trim();
-        var message = document.getElementById("message").value.trim();
-
-        if (name === '' || email === '' || message === '') {
-            alert('Please fill out all required fields: Name, Email, Message');
-            return;
         }
 
-        // If all fields are filled out, proceed to save the note
-        var noteContent = document.getElementById("notepad").value;
-        console.log("Note content to be saved:", noteContent);
-        // Send the note content to the backend using AJAX or fetch
-        // Example:
-        /*
-        fetch('/api/notes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                name: name,
-                email: email,
-                message: message,
-                content: noteContent 
-            }),
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Note saved successfully');
-            } else {
-                console.error('Error saving note');
-            }
-        })
-        .catch(error => {
-            console.error('Error saving note:', error);
-        });
-        */
-    });
-
-    document.getElementById("contactForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        // Simulate sending contact form data to backend
-        var formData = new FormData(this);
-        var formDataObject = {};
-        formData.forEach(function(value, key){
-            formDataObject[key] = value;
-        });
-        console.log("Contact form data to be sent:", formDataObject);
-        // Send the form data to the backend using AJAX or fetch
-        // Example:
-        /*
-        fetch('/api/contact', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Message sent successfully');
-                // Reset the form
-                document.getElementById("contactForm").reset();
-            } else {
-                console.error('Error sending message');
-            }
-        })
-        .catch(error => {
-            console.error('Error sending message:', error);
-        });
-        */
-    });
-</script>
-
+        // Function to save note locally on the device
+        function saveNoteLocally(noteContent) {
+            // Implement saving note locally (e.g., using localStorage)
+            // Example:
+            localStorage.setItem('note', noteContent);
+        }
+    </script>
 </body>
 </html>
