@@ -80,12 +80,27 @@
 
             // Notify user that note has been saved
             alert('Note saved successfully!');
+
+            // Download note as .txt file
+            downloadNoteAsTxt(noteContent);
         });
 
         // Function to save note locally on the device
         function saveNoteLocally(noteContent) {
             // Save note locally using localStorage
             localStorage.setItem('note', noteContent);
+        }
+
+        // Function to download note as .txt file
+        function downloadNoteAsTxt(noteContent) {
+            var blob = new Blob([noteContent], { type: "text/plain" });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = "note.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
     </script>
 </body>
