@@ -39,7 +39,6 @@
             <input type="email" id="email" name="email" required>
             <label for="message">Message:</label>
             <textarea id="message" name="message" required></textarea>
-            <button type="submit" class="btn">Send Message</button>
         </form>
     </div>
 
@@ -58,9 +57,6 @@
 
             // Check if note content is not empty
             if (noteContent.trim() !== '') {
-                // Save note to database (you need to implement this part using AJAX or fetch)
-                saveNoteToDatabase(noteContent);
-
                 // Save note locally on the device
                 saveNoteLocally(noteContent);
 
@@ -72,35 +68,9 @@
             }
         });
 
-        // Function to save note to database
-        function saveNoteToDatabase(noteContent) {
-            // Implement saving note to the database using AJAX or fetch
-            // Example:
-            /*
-            fetch('/api/notes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ content: noteContent }),
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Note saved to database successfully');
-                } else {
-                    console.error('Error saving note to database');
-                }
-            })
-            .catch(error => {
-                console.error('Error saving note to database:', error);
-            });
-            */
-        }
-
         // Function to save note locally on the device
         function saveNoteLocally(noteContent) {
-            // Implement saving note locally (e.g., using localStorage)
-            // Example:
+            // Save note locally using localStorage
             localStorage.setItem('note', noteContent);
         }
     </script>
